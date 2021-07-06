@@ -1,5 +1,5 @@
 /*
- * Import URL: https://raw.githubusercontent.com/HubitatCommunity/??/master/??-Driver.groovy"
+ * Import URL: https://raw.githubusercontent.com/HubitatCommunity/Virtual-Presence/master/VirtualPowerPlug.groovy"
  *
  *	Copyright 2019 C Steele
  *
@@ -21,7 +21,7 @@
  
 metadata 
 {
-	definition(name: "Virtual Power Plug", namespace: "csteele", author: "C Steele", importUrl: "https://raw.githubusercontent.com/HubitatCommunity/??/master/??.groovy")
+	definition(name: "Virtual Power Plug", namespace: "csteele", author: "C Steele", importUrl: "https://raw.githubusercontent.com/HubitatCommunity/Virtual-Presence/master/VirtualPowerPlug.groovy")
 	{
  		capability "Switch"
  		capability "Actuator"
