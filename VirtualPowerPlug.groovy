@@ -103,7 +103,7 @@ def resetVoltage() {
 	if (debugOutput) log.debug "$device resetVoltage"
 	sendEvent(name: "voltage",   value:0)	
 	sendEvent(name: "voltageH",  value:0)	
-	sendEvent(name: "voltageH",  value:0)	
+	sendEvent(name: "voltageL",  value:0)	
 }
 
 def setCurrent(val) {
@@ -127,7 +127,7 @@ def setVoltage(val) {
 	if (debugOutput) log.debug "$device setVoltage: $val"
 	sendEvent(name: "voltage",   value:val)	
 	sendEvent(name: "voltageH",  value:val)	
-	sendEvent(name: "voltageH",  value:val)	
+	sendEvent(name: "voltageL",  value:val)	
 }
 def active()
 {
