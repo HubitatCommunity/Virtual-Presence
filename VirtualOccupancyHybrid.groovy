@@ -4,7 +4,8 @@
  */
 metadata {
 	definition (name: "Virtual Occupancy Hybrid", namespace: "csteele", author: "C Steele") {
-		capability "Presence Sensor"
+		capability "PresenceSensor"
+		capability "MotionSensor"
 		capability "Sensor"
 		capability "Switch"
  
@@ -12,6 +13,8 @@ metadata {
  		command	'departed'
  		command	'occupied'
  		command	'unoccupied'
+ 		command	'active'
+ 		command	'inactive'
 
 		attribute	'occupancy', 'STRING'
 
@@ -34,9 +37,26 @@ def parse(String description) {
 	createEvent(name: pair[0].trim(), value: pair[1].trim())
 }
 
+def active() {
+	sendEvent(name: "presence", value:"present", descriptionText: "presence", unit: "")
+	sendEvent(name: "occupancy", value:"occupied", descriptionText: "occupied", unit: "")
+	sendEvent(name: "motion", value:"active", descriptionText: "active", unit: "")
+	sendEvent(name: "switch", value:"on", descriptionText: "presence", unit: "")
+	if (logEnable) log.debug("Active")
+}
+
+def inactive() {
+	sendEvent(name: "presence", value:"not present", descriptionText: "presence", unit: "")
+	sendEvent(name: "occupancy", value:"unoccupied", descriptionText: "unoccupied", unit: "")
+	sendEvent(name: "motion", value:"inactive", descriptionText: "inactive", unit: "")
+	sendEvent(name: "switch", value:"off", descriptionText: "presence", unit: "")
+	if (logEnable) log.debug("Inactive")
+}
+
 def occupied() {
 	sendEvent(name: "presence", value:"present", descriptionText: "presence", unit: "")
 	sendEvent(name: "occupancy", value:"occupied", descriptionText: "occupied", unit: "")
+	sendEvent(name: "motion", value:"active", descriptionText: "active", unit: "")
 	sendEvent(name: "switch", value:"on", descriptionText: "presence", unit: "")
 	if (logEnable) log.debug("Occupied")
 }
@@ -44,6 +64,7 @@ def occupied() {
 def unoccupied() {
 	sendEvent(name: "presence", value:"not present", descriptionText: "presence", unit: "")
 	sendEvent(name: "occupancy", value:"unoccupied", descriptionText: "unoccupied", unit: "")
+	sendEvent(name: "motion", value:"inactive", descriptionText: "inactive", unit: "")
 	sendEvent(name: "switch", value:"off", descriptionText: "presence", unit: "")
 	if (logEnable) log.debug("Unoccupied")
 }
@@ -51,6 +72,7 @@ def unoccupied() {
 def arrived() {
 	sendEvent(name: "presence", value:"present", descriptionText: "presence", unit: "")
 	sendEvent(name: "occupancy", value:"occupied", descriptionText: "occupied", unit: "")
+	sendEvent(name: "motion", value:"active", descriptionText: "active", unit: "")
 	sendEvent(name: "switch", value:"on", descriptionText: "presence", unit: "")
 	if (logEnable) log.debug("Arrived")
 }
@@ -58,6 +80,7 @@ def arrived() {
 def departed() {
 	sendEvent(name: "presence", value:"not present", descriptionText: "presence", unit: "")
 	sendEvent(name: "occupancy", value:"unoccupied", descriptionText: "unoccupied", unit: "")
+	sendEvent(name: "motion", value:"inactive", descriptionText: "inactive", unit: "")
 	sendEvent(name: "switch", value:"off", descriptionText: "presence", unit: "")
 	if (logEnable) log.debug("Departed")
 }
@@ -65,6 +88,8 @@ def departed() {
 def on() {
 	sendEvent(name: "presence", value:"present", descriptionText: "presence", unit: "")
 	sendEvent(name: "occupancy", value:"occupied", descriptionText: "occupied", unit: "")
+	sendEvent(name: "motion", value:"active", descriptionText: "active", unit: "")
+	sendEvent(name: "motion", value:"inactive", descriptionText: "inactive", unit: "")
 	sendEvent(name: "switch", value:"on", descriptionText: "presence", unit: "")
 	if (logEnable) log.debug("On")
 }
